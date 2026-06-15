@@ -5,17 +5,17 @@ export default function FeaturedProducts() {
     {
       title: "TUF Gaming Motherboard",
       price: "45,000",
-      image: "/products/motherboard.png",
+      image: "/images/laptop.jpg",
     },
     {
       title: "ThinkPad X1 Carbon",
       price: "185,000",
-      image: "/products/thinkpad.png",
+      image: "/images/laptop.jpg",
     },
     {
       title: "Latest Flagship Mobiles",
       price: "120,000",
-      image: "/products/mobile.png",
+      image: "/images/laptop.jpg",
     },
   ];
 

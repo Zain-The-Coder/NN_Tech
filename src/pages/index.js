@@ -1,4 +1,3 @@
-import Sidebar from "@/components/layout/Sidebar";
 import HeroSection from "@/components/home/HeroSection";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import Newsletter from "@/components/home/Newsletter";
@@ -10,7 +9,6 @@ export default function Home() {
     <>
     <header className="pt-[100px]">
       <Header />
-      <Sidebar />
     </header>
       <main>
         <HeroSection />

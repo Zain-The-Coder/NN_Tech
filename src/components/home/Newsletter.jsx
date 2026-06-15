@@ -13,19 +13,17 @@ export default function Newsletter() {
           tech news and discounts.
         </p>
 
-        <form className="flex gap-4 justify-center">
-
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="px-4 py-3 rounded bg-black border"
-          />
-
-          <button className="bg-cyan-400 text-black px-6 py-3 rounded">
-            Subscribe
+<div className="flex gap-[30px] justify-center">
+          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+            Join The Community
           </button>
-
-        </form>
+          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+            Message Founder
+          </button>
+          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+            About Us
+          </button>
+</div>
 
       </div>
 
