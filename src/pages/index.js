@@ -3,6 +3,7 @@ import FeaturedProducts from "@/components/home/FeaturedProducts";
 import Newsletter from "@/components/home/Newsletter";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import Location from "@/components/home/Location";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
         <FeaturedProducts />
         <Newsletter />
       </main>
-
+      <Location />
       <Footer />
     </>
   );

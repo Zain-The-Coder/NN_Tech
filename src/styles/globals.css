@@ -1,10 +1,23 @@
 @import "tailwindcss";
 
 body{
-  background:#00050f;
+  background:#090f1b;
   color:white;
   overflow-x:hidden;
 }
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  overflow-x:hidden;
+}
+
 
 .circuit-bg{
   background-image:

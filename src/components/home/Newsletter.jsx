@@ -1,29 +1,33 @@
 export default function Newsletter() {
   return (
-    <section className="max-w-7xl mx-auto px-8 py-20">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
 
-      <div className="bg-slate-900 p-10 rounded-xl text-center">
+      <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 lg:p-12 text-center">
 
-        <h2 className="text-4xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 leading-tight">
           JOIN THE NN TECH COMMUNITY
         </h2>
 
-        <p className="mb-6">
+        <p className="mb-8 text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto">
           Get exclusive access to pre-orders,
           tech news and discounts.
         </p>
 
-<div className="flex gap-[30px] justify-center">
-          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-5">
+
+          <button className="w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold active:scale-95 transition-all hover:scale-105">
             Join The Community
           </button>
-          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+
+          <button className="w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold active:scale-95 transition-all hover:scale-105">
             Message Founder
           </button>
-          <button className="bg-cyan-400 text-black px-6 py-3 rounded active:scale-95 cursor-pointer transition-all">
+
+          <button className="w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold active:scale-95 transition-all hover:scale-105">
             About Us
           </button>
-</div>
+
+        </div>
 
       </div>
 

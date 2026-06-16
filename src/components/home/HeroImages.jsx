@@ -13,15 +13,6 @@ export default function HeroImages() {
         />
       </div>
 
-      {/* Floating badges */}
-      <div className={`${styles.badge} ${styles.badge1}`}>
-        💻 Gaming Setup
-      </div>
-
-      <div className={`${styles.badge} ${styles.badge2}`}>
-        ⚡ High Performance
-      </div>
-
     </div>
   );
 }
