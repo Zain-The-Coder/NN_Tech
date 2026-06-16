@@ -1,28 +1,142 @@
 @import "tailwindcss";
 
-body{
-  background:#090f1b;
-  color:white;
-  overflow-x:hidden;
+/* =========================
+   BASE THEME
+========================= */
+
+body {
+  background: #090f1b;
+  color: white;
+  overflow-x: hidden;
+  font-family: Inter, system-ui, sans-serif;
+  scroll-behavior: smooth;
 }
 
-.circuit-bg{
-  background-image:
-    radial-gradient(
-      circle at 2px 2px,
-      rgba(0,255,255,.08) 1px,
-      transparent 0
-    );
+/* =========================
+   CIRCUIT BACKGROUND
+========================= */
 
-  background-size:40px 40px;
+.circuit-bg {
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(0, 255, 255, 0.08) 1px,
+    transparent 0
+  );
+
+  background-size: 40px 40px;
 }
 
-.glow-border{
-  box-shadow:0 0 15px rgba(0,255,255,.4);
+/* =========================
+   GLOW EFFECT (your original + improved)
+========================= */
+
+.glow-border {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  transition: all 0.3s ease;
 }
 
-.glass{
-  background:rgba(255,255,255,.05);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.1);
+.glow-border:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+/* =========================
+   GLASS EFFECT
+========================= */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   SCROLLBAR (NEW ADDITION)
+========================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090f1b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.6);
+}
+
+/* =========================
+   BUTTON GLOBAL FEEL
+========================= */
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* =========================
+   INPUT FOCUS STYLE
+========================= */
+
+input,
+select,
+textarea {
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.25);
+}
+
+/* =========================
+   CARD HOVER (NEW ADDITION)
+========================= */
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 255, 255, 0.15);
+}
+
+/* =========================
+   TEXT GRADIENT (optional but useful)
+========================= */
+
+.text-gradient {
+  background: linear-gradient(90deg, #00ffff, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   SMOOTH ANIMATION
+========================= */
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
