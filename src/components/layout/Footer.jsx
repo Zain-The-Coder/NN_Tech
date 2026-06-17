@@ -26,14 +26,15 @@ export default function Footer() {
               Who Created Our Store?
             </h2>
 
-            <p className="mt-4 text-gray-400 text-sm sm:text-base leading-relaxed">
-              Zain Ur Rehman, a MERN Stack Developer, helps businesses build
-              modern SaaS platforms and professional e-commerce solutions.
-            </p>
-
-            <p className="mt-2 text-gray-400 text-sm sm:text-base">
-              Need a website or web application? Feel free to contact him.
-            </p>
+            <div className="text-slate-400 text-sm sm:text-base leading-relaxed space-y-2 font-medium tracking-wide">
+              <p>
+                <span className="text-cyan-400 font-semibold">Zain Ur Rehman</span>, a MERN Stack Developer, helps businesses build
+                modern SaaS platforms and professional e-commerce solutions.
+              </p>
+              <p className="text-slate-500 text-sm">
+                Need a website or web application? Feel free to contact him.
+              </p>
+            </div>
 
             <button className="mt-5 w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95">
               Message Him
