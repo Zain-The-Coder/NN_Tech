@@ -1,10 +1,9 @@
-import { useState, useMemo, useEffect } from "react"; // 1. useEffect add kiya
-import Header from "@/components/layout/Header";
+import { useState, useMemo, useEffect } from "react";
 import FiltersSidebar from "@/components/product-page/SidebarFilters";
 import ProductGrid from "@/components/product-page/ProductGrid";
 import Pagination from "@/components/product-page/Pagination";
 import Navbar from "@/components/product-page/NavBar";
-import Footer from "@/components/layout/Footer";
+import Footer from "@/components/product-page/Footer";
 
 const INITIAL_PRODUCTS = [
   { id: 1, title: "ASUS ROG Strix Z790-E Gaming WiFi II", price: 145000, category: "Motherboards", image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7" },
@@ -24,13 +23,13 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  // ✨ Auto-Scroll Logic: Jab bhi page number change hoga, ye screen ko upar le jayega
+  // Auto-Scroll Logic
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // Smooth transition scroll animation ke liye
+      behavior: "smooth",
     });
-  }, [currentPage]); // Dependency array mein currentPage daala taake sirf page badalne par trigger ho
+  }, [currentPage]);
 
   // Filtration and Sorting Logic
   const filteredAndSortedProducts = useMemo(() => {
@@ -59,11 +58,12 @@ export default function Home() {
   }, [filteredAndSortedProducts, currentPage]);
 
   return (
-    <>
-      <Header />
+    <div className="flex flex-col min-h-screen bg-slate-950 text-white selection:bg-cyan-500/30">
+      <Navbar />
 
-      <main className="pt-24 min-h-screen circuit-pattern bg-slate-950 text-white selection:bg-cyan-500/30">
-        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row gap-6 items-start">
+      {/* Main content wrapper with flex-grow taake footer hamesha bottom par push rahe */}
+      <main className="flex-grow pt-28 pb-16 circuit-pattern">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row gap-8 items-start">
 
           <FiltersSidebar 
             selectedCategories={selectedCategories}
@@ -71,7 +71,8 @@ export default function Home() {
             setCurrentPage={setCurrentPage}
           />
 
-          <section className="flex-1 w-full flex flex-col justify-between min-h-[600px]">
+          {/* section me gap-12 add kiya taake grid aur pagination me faasla ho */}
+          <section className="flex-1 w-full flex flex-col justify-between gap-12 min-h-[650px]">
             <ProductGrid 
               products={paginatedProducts}
               totalResults={totalResults}
@@ -91,8 +92,8 @@ export default function Home() {
         </div>
       </main>
 
-      <Navbar />
+      {/* Footer component directly rendered without layout breaking */}
       <Footer />
-    </>
+    </div>
   );
 }

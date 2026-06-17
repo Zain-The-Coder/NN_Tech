@@ -66,7 +66,7 @@ export default function ProductCard({ image, title, price }) {
   const formattedPrice = price.toLocaleString();
 
   return (
-    <div className="group relative flex flex-col justify-between h-full bg-slate-950/40 backdrop-blur-md border border-white/5 rounded-2xl p-4 overflow-hidden shadow-xl transition-all duration-500 hover:border-cyan-500/30 hover:-translate-y-1.5">
+    <div className="group relative flex flex-col justify-between h-full bg-slate-950/40 backdrop-blur-md border border-cyan-100 rounded-2xl p-4 overflow-hidden shadow-xl transition-all duration-500 hover:border-cyan-500/30 hover:-translate-y-1.5">
       <div>
         <div className="relative aspect-square overflow-hidden rounded-xl bg-slate-900 mb-4 border border-white/[0.02]">
           <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:rotate-1" />

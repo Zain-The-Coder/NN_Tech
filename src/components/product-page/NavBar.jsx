@@ -46,28 +46,7 @@ export default function Navbar() {
         {/* Right Actions: Cyberpunk Action Buttons */}
         <div className="flex items-center gap-2">
           
-          {/* Action Button: Search */}
-          <button className="p-2.5 text-slate-400 hover:text-cyan-400 bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95 group">
-            <span className="material-symbols-outlined text-xl transition-transform duration-500 group-hover:rotate-90">
-              search
-            </span>
-          </button>
-
-          {/* Action Button: Cart (With Glow Alert) */}
-          <button className="p-2.5 text-slate-400 hover:text-cyan-400 bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95 relative group">
-            <span className="material-symbols-outlined text-xl transition-transform duration-300 group-hover:-translate-y-0.5">
-              shopping_cart
-            </span>
-            <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
-          </button>
-
-          {/* Action Button: Profile */}
-          <button className="p-2.5 text-slate-400 hover:text-white bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95">
-            <span className="material-symbols-outlined text-xl">
-              person
-            </span>
-          </button>
-
+          
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
