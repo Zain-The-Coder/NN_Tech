@@ -1,47 +1,112 @@
+import { useState } from "react";
+
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("Laptops");
+
+  const navLinks = ["Laptops", "PCs", "SSDs", "Mobiles", "Accessories"];
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-surface/20 backdrop-blur-xl dark:bg-surface-container-low/20 border-b border-outline-variant/10 shadow-[0_0_20px_rgba(0,221,221,0.1)]">
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50 rounded-2xl bg-slate-950/40 backdrop-blur-xl border border-white/5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-cyan-500/20">
+      <div className="flex justify-between items-center px-6 md:px-8 py-3.5">
         
-        {/* Logo */}
-        <div className="font-display-lg text-2xl font-extrabold text-primary-fixed dark:text-primary-fixed-dim tracking-tighter">
-          NN TECH
+        {/* Logo: Kinetic Letter-Spacing & Neon Dot */}
+        <div className="flex items-center gap-1.5 font-black text-xl tracking-widest text-white group cursor-pointer">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:tracking-[0.2em] transition-all duration-300 ease-out">
+            NN TECH
+          </span>
+          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" />
         </div>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <a className="font-body-md text-sm text-on-surface-variant hover:text-primary-fixed transition-colors duration-300" href="#">Laptops</a>
-          <a className="font-body-md text-sm text-on-surface-variant hover:text-primary-fixed transition-colors duration-300" href="#">PCs</a>
-          <a className="font-body-md text-sm text-on-surface-variant hover:text-primary-fixed transition-colors duration-300" href="#">SSDs</a>
-          <a className="font-body-md text-sm text-on-surface-variant hover:text-primary-fixed transition-colors duration-300" href="#">Mobiles</a>
-          <a className="font-body-md text-sm text-on-surface-variant hover:text-primary-fixed transition-colors duration-300" href="#">Accessories</a>
+        {/* Navigation Links: Magnetic Liquid Capsule Effect */}
+        <div className="hidden md:flex items-center gap-1 bg-white/[0.03] p-1 rounded-xl border border-white/[0.02]">
+          {navLinks.map((link) => {
+            const isActive = activeLink === link;
+            return (
+              <a
+                key={link}
+                href="#"
+                onClick={() => setActiveLink(link)}
+                className={`relative px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-all duration-300 overflow-hidden ${
+                  isActive 
+                    ? "text-cyan-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" 
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {/* Active Capsule Background */}
+                {isActive && (
+                  <span className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-cyan-500/0 border-t border-cyan-400/30 rounded-lg -z-10 animate-[fadeIn_0.2s_ease-out]" />
+                )}
+                {link}
+              </a>
+            );
+          })}
         </div>
 
-        {/* Right Actions (Search & Buttons) */}
-        <div className="flex items-center gap-6">
+        {/* Right Actions: Cyberpunk Action Buttons */}
+        <div className="flex items-center gap-2">
           
-          {/* Search Bar */}
-          <div className="relative group hidden sm:block">
-            <input 
-              type="text"
-              className="bg-surface-container-highest/20 border border-outline-variant/30 rounded-full px-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary-fixed w-48 transition-all" 
-              placeholder="Search tech..." 
-            />
-            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">
+          {/* Action Button: Search */}
+          <button className="p-2.5 text-slate-400 hover:text-cyan-400 bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95 group">
+            <span className="material-symbols-outlined text-xl transition-transform duration-500 group-hover:rotate-90">
               search
             </span>
-          </div>
-
-          {/* Shopping Cart Button */}
-          <button className="text-on-surface-variant hover:text-primary-fixed transition-all active:scale-95 flex items-center">
-            <span className="material-symbols-outlined">shopping_cart</span>
           </button>
 
-          {/* Profile Button */}
-          <button className="text-on-surface-variant hover:text-primary-fixed transition-all active:scale-95 flex items-center">
-            <span className="material-symbols-outlined">person</span>
+          {/* Action Button: Cart (With Glow Alert) */}
+          <button className="p-2.5 text-slate-400 hover:text-cyan-400 bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95 relative group">
+            <span className="material-symbols-outlined text-xl transition-transform duration-300 group-hover:-translate-y-0.5">
+              shopping_cart
+            </span>
+            <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
           </button>
 
+          {/* Action Button: Profile */}
+          <button className="p-2.5 text-slate-400 hover:text-white bg-white/0 hover:bg-white/[0.05] border border-transparent hover:border-white/5 rounded-xl transition-all duration-300 active:scale-95">
+            <span className="material-symbols-outlined text-xl">
+              person
+            </span>
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2.5 text-slate-400 hover:text-white bg-white/[0.03] border border-white/5 rounded-xl transition-all"
+          >
+            <span className="material-symbols-outlined text-xl flex items-center justify-center w-5 h-5">
+              {isOpen ? "close" : "menu"}
+            </span>
+          </button>
+
+        </div>
+      </div>
+
+      {/* Mobile Dropdown Menu: Floating Glass Panel */}
+      <div
+        className={`md:hidden absolute top-[calc(100%+0.5rem)] left-0 w-full bg-slate-950/90 backdrop-blur-2xl border border-white/5 rounded-2xl transition-all duration-300 ease-out origin-top ${
+          isOpen 
+            ? "opacity-100 scale-100 translate-y-0" 
+            : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+        }`}
+      >
+        <div className="flex flex-col p-4 gap-1.5">
+          {navLinks.map((link) => (
+            <a
+              key={link}
+              href="#"
+              onClick={() => {
+                setActiveLink(link);
+                setIsOpen(false);
+              }}
+              className={`px-4 py-3 text-sm font-medium tracking-wide rounded-xl transition-all duration-200 ${
+                activeLink === link
+                  ? "bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400"
+                  : "text-slate-400 hover:text-white hover:bg-white/[0.02]"
+              }`}
+            >
+              {link}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
