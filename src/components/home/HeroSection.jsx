@@ -1,4 +1,5 @@
 import HeroImages from "./HeroImages";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -20,14 +21,16 @@ export default function HeroSection() {
           </ul>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:mt-10 justify-center lg:justify-start">
-
+            <Link href="/product">
             <button className="bg-cyan-400 text-black transition-all hover:scale-105 active:scale-95 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold">
               SHOP NOW
             </button>
-
+            </Link>
+            <Link href="/product">
             <button className="border border-cyan-400 transition-all active:scale-95 px-6 sm:px-8 py-3 sm:py-4 rounded-lg  hover:bg-cyan-400/10">
               VIEW CATALOG
             </button>
+            </Link>
 
           </div>
         </div>

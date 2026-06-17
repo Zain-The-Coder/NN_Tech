@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function FiltersSidebar({ selectedCategories, setSelectedCategories, setCurrentPage }) {
   const categories = ["Processors", "Motherboards", "Graphics Cards", "Power Supplies"];
 
@@ -45,9 +47,15 @@ export default function FiltersSidebar({ selectedCategories, setSelectedCategori
                 <span className="text-sm font-medium tracking-wide">{category}</span>
               </div>
             </div>
+            
           );
         })}
       </div>
+       <Link href="/">
+            <button className="border mt-[10%] border-cyan-400 transition-all active:scale-95 px-6 sm:px-8 py-3 sm:py-4 rounded-lg  hover:bg-cyan-400/10">
+              Go To Home Page
+            </button>
+            </Link>
     </aside>
   );
 }
