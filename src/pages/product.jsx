@@ -1,3 +1,5 @@
+"use client"; // Make sure this is at the top if using Next.js App Router
+
 import { useState, useMemo, useEffect } from "react";
 import FiltersSidebar from "@/components/product-page/SidebarFilters";
 import ProductGrid from "@/components/product-page/ProductGrid";
@@ -5,23 +7,37 @@ import Pagination from "@/components/product-page/Pagination";
 import Navbar from "@/components/product-page/NavBar";
 import Footer from "@/components/product-page/Footer";
 
-const INITIAL_PRODUCTS = [
-  { id: 1, title: "ASUS ROG Strix Z790-E Gaming WiFi II", price: 145000, category: "Motherboards", image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7" },
-  { id: 2, title: "Intel Core i9-14900K", price: 192500, category: "Processors", image: "https://images.unsplash.com/photo-1518770660439-4636190af475" },
-  { id: 3, title: "ASUS TUF Gaming A15", price: 345000, category: "Laptops", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853" },
-  { id: 4, title: "Samsung 990 Pro 2TB", price: 58000, category: "Power Supplies", image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea" },
-  { id: 5, title: "MSI GeForce RTX 4090 Suprim X", price: 620000, category: "Graphics Cards", image: "https://images.unsplash.com/photo-1591488320449-011701bb6704" },
-  { id: 6, title: "AMD Ryzen 7 7800X3D Boxed", price: 128000, category: "Processors", image: "https://images.unsplash.com/photo-1518770660439-4636190af475" },
-  { id: 7, title: "Gigabyte B650 AORUS Elite AX", price: 72000, category: "Motherboards", image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7" },
-  { id: 8, title: "Corsair RM850e 850W Gold", price: 38000, category: "Power Supplies", image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea" },
-  { id: 9, title: "ROG Strix RTX 4080 Super", price: 385000, category: "Graphics Cards", image: "https://images.unsplash.com/photo-1591488320449-011701bb6704" }
-];
-
 export default function Home() {
+  const [products, setProducts] = useState([]); // Real products database se yahan aayenge
+  const [loading, setLoading] = useState(true); // Loading state handle karne ke liye
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [sortBy, setSortBy] = useState("Latest Arrivals");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+
+  // Deployed Backend API endpoint
+  const API_URL = "/api/products";
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        
+        // Mongoose schema check: response check karein agar error array wrappers hon ya direct array ho
+        // Agar response structure different ho (e.g., { products: [...] }), to data.products use karein
+        const fetchedProducts = Array.isArray(data) ? data : data.products || [];
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Auto-Scroll Logic
   useEffect(() => {
@@ -31,12 +47,15 @@ export default function Home() {
     });
   }, [currentPage]);
 
-  // Filtration and Sorting Logic
+  // Filtration and Sorting Logic (Mongoose schema keys handles dynamically)
   const filteredAndSortedProducts = useMemo(() => {
-    let result = [...INITIAL_PRODUCTS];
+    let result = [...products];
 
     if (selectedCategories.length > 0) {
-      result = result.filter(product => selectedCategories.includes(product.category));
+      result = result.filter(product => 
+        // Backend keys safe-handling (categorey name key matches schema typos)
+        selectedCategories.includes(product.categorey || product.category)
+      );
     }
 
     if (sortBy === "Price Low to High") {
@@ -46,7 +65,7 @@ export default function Home() {
     }
 
     return result;
-  }, [selectedCategories, sortBy]);
+  }, [products, selectedCategories, sortBy]);
 
   // Pagination Calculations
   const totalResults = filteredAndSortedProducts.length;
@@ -59,34 +78,50 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-950 text-white selection:bg-cyan-500/30">
-      <Navbar />
+      <Navbar 
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+        setCurrentPage={setCurrentPage}
+      />
 
-      {/* Main content wrapper with flex-grow taake footer hamesha bottom par push rahe */}
+      {/* Main content wrapper */}
       <main className="flex-grow pt-28 pb-16 circuit-pattern">
-        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row gap-8 items-start">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row gap-8 items-start">
 
-          <FiltersSidebar 
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="hidden sm:block sm:sticky sm:top-32">
+            <FiltersSidebar 
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
 
-          {/* section me gap-12 add kiya taake grid aur pagination me faasla ho */}
+          {/* section layout */}
           <section className="flex-1 w-full flex flex-col justify-between gap-12 min-h-[650px]">
-            <ProductGrid 
-              products={paginatedProducts}
-              totalResults={totalResults}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-            />
+            {loading ? (
+              // Loading Spinner Element
+              <div className="flex flex-col items-center justify-center flex-grow py-32 text-slate-400">
+                <span className="h-10 w-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mb-4" />
+                <p className="text-sm font-medium tracking-widest uppercase text-cyan-400">Loading Products...</p>
+              </div>
+            ) : (
+              <ProductGrid 
+                products={paginatedProducts}
+                totalResults={totalResults}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+              />
+            )}
             
-            <Pagination 
-              currentPage={currentPage} 
-              totalPages={totalPages} 
-              setCurrentPage={setCurrentPage} 
-            />
+            {!loading && (
+              <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                setCurrentPage={setCurrentPage} 
+              />
+            )}
           </section>
 
         </div>

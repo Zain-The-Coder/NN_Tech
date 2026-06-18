@@ -31,14 +31,15 @@ router.get(async (req , res) => {
 
 router.post(async (req , res) => {
   try {
-    const {productName , description , price , available , quantity , image} = req.body ;
+    const {productName , description , price , available , quantity , image , categorey} = req.body ;
     const product = await ProductModel.create({
       productName : productName , 
       description : description , 
       price : price , 
       available : available , 
       quantity : quantity , 
-      image : image
+      image : image ,
+      categorey : categorey
     });
 
     res.status(200).json({
