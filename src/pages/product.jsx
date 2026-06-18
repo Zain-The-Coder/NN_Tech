@@ -92,7 +92,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer component directly rendered without layout breaking */}
       <Footer />
     </div>
   );
