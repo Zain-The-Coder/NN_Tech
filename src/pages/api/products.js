@@ -13,11 +13,16 @@ router.use(async (req, res, next) => {
 });
 
 // GET Method
+// GET Method
 router.get(async (req, res) => {
   try {
     const data = await ProductModel.find();
 
-    // Added 'return' to guarantee execution ends here
+    // Fix: Force response headers to prevent 304 caching while debugging production
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
     return res.status(200).json({
       status: 200,
       message: "Product Fetched Successfully!",
@@ -26,7 +31,7 @@ router.get(async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       status: 500,
-      error_Message: e.message,
+      error_Message: e.message || "Database fetch wrapper failed",
     });
   }
 });
