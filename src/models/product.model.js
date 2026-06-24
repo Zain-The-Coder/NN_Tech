@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
         required : true 
     } , 
     available : {
-        type : Boolean , 
+        type : String , 
         required : true 
     } , 
     quantity : {
@@ -28,6 +28,14 @@ const productSchema = new mongoose.Schema({
     image : {
         type : String , 
         required : true 
+    } ,
+    featured : {
+        type : Boolean ,
+        default : false
+    } , 
+    stock : {
+        type : Boolean ,
+        default : true
     }
 } , {timestamps : true});
 
