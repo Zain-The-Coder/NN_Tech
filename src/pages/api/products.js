@@ -2,34 +2,39 @@ import connectDB from "@/lib/mongodb.js";
 import { createRouter } from "next-connect";
 import ProductModel from "@/models/product.model";
 import imagekit from "@/lib/imagekit";
-import upload from "@/lib/multer";
+import upload from "@/lib/multer"; // Ensure this uses multer.memoryStorage()
 
 const router = createRouter();
 
+// Middleware to connect to DB
 router.use(async (req, res, next) => {
   await connectDB();
   next();
 });
 
+// GET Method
 router.get(async (req, res) => {
   try {
     const data = await ProductModel.find();
 
-    res.status(200).json({
+    // Added 'return' to guarantee execution ends here
+    return res.status(200).json({
       status: 200,
       message: "Product Fetched Successfully!",
       products: data,
     });
   } catch (e) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 500,
       error_Message: e.message,
     });
   }
 });
 
+// Apply Multer Middleware only for the routes below it
 router.use(upload.single("image"));
 
+// POST Method
 router.post(async (req, res) => {
   try {
     const {
@@ -50,6 +55,7 @@ router.post(async (req, res) => {
       });
     }
 
+    // Upload to ImageKit using the buffer from memory
     const uploadResult = await imagekit.upload({
       file: req.file.buffer,
       fileName: `${Date.now()}-${req.file.originalname}`,
@@ -68,15 +74,16 @@ router.post(async (req, res) => {
       stock,
     });
 
-    res.status(201).json({
+    // Added 'return'
+    return res.status(201).json({
       status: 201,
       message: "Product Added Successfully!",
       product,
     });
   } catch (e) {
-    console.log(e);
+    console.error("Deployment POST Error:", e);
 
-    res.status(500).json({
+    return res.status(500).json({
       status: 500,
       error_Message: e.message,
     });
@@ -85,16 +92,18 @@ router.post(async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // Required for Multer to parse multipart/form-data
   },
 };
 
+// CRITICAL FIX: Explicitly export the router handler evaluation
 export default router.handler({
   onError: (err, req, res) => {
     console.error(err.stack);
-    res.status(500).end("Something Went Wrong !");
+    // Use .send() or .json() instead of just .end() to cleanly resolve the API path
+    return res.status(500).json({ status: 500, message: "Something Went Wrong!" });
   },
   onNoMatch: (req, res) => {
-    res.status(405).end(`Method ${req.method} Not Allowed`)
+    return res.status(405).json({ status: 405, message: `Method ${req.method} Not Allowed` });
   },
 });

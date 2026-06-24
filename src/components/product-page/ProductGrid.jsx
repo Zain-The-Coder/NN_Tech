@@ -39,7 +39,8 @@ export default function ProductGrid({ products, totalResults, currentPage, items
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-[fadeIn_0.4s_ease-out]">
           {products.map((item) => (
-            <ProductCard key={item.id} {...item} />
+            // FIX: Changed item.id to item._id to match MongoDB properties
+            <ProductCard key={item._id} {...item} />
           ))}
         </div>
       )}
