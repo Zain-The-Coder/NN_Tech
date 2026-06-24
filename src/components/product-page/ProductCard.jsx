@@ -1,36 +1,57 @@
-
-export default function ProductCard({ image, productName, title, price }) {
+export default function ProductCard({ image, productName, title, price, description }) {
   const formattedPrice = price ? price.toLocaleString() : "0";
   
   // Safe Fallback agar backend database se direct 'productName' aa raha ho
   const displayTitle = productName || title;
 
   return (
-    <div className="group relative flex flex-col justify-between h-full bg-slate-950/40 backdrop-blur-md border border-cyan-100 rounded-2xl p-4 overflow-hidden shadow-xl transition-all duration-500 hover:border-cyan-500/30 hover:-translate-y-1.5">
+    <div className="max-w-sm w-full bg-slate-900 border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between h-full">
+
       <div>
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-slate-900 mb-4 border border-white/[0.02]">
-          <img src={image} alt={displayTitle} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:rotate-1" />
+        {/* Image Section */}
+        <div className="relative group/img overflow-hidden aspect-square bg-slate-800">
+          <img
+            src={image}
+            alt={displayTitle}
+            className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
+          />
+
+          {/* Badge */}
+          <span className="absolute top-3 left-3 bg-cyan-400 text-black text-xs font-bold px-3 py-1 rounded-full">
+            NEW
+          </span>
         </div>
-        <h4 className="text-sm font-medium text-slate-300 group-hover:text-white line-clamp-2 mb-2 tracking-wide min-h-[40px] transition-colors">
-          {displayTitle}
-        </h4>
+
+        {/* Content Section */}
+        <div className="p-5 pb-0">
+          {/* Title */}
+          <h3 className="text-base sm:text-lg font-bold text-white line-clamp-1">
+            {displayTitle}
+          </h3>
+
+          {/* Description - 2 se 3 Lines Method (Baki text automatic cut ho jaye ga) */}
+          <p className="text-gray-400 text-sm mt-2 line-clamp-3 min-h-[60px] leading-relaxed">
+            {description || "High-quality premium product designed for the best experience, ultimate durability, and maximum performance in daily usage."}
+          </p>
+        </div>
       </div>
 
-      <div className="mt-4 space-y-4">
+      {/* Price & Action Section */}
+      <div className="p-5 pt-0 mt-4">
+        {/* Price Row */}
         <div className="flex items-baseline gap-1">
-          <span className="text-xs font-bold text-cyan-500/70 tracking-wider">PKR</span>
-          <span className="text-xl font-black text-white tracking-tight group-hover:text-cyan-400 transition-colors">
+          <span className="text-xs font-bold text-cyan-400 tracking-wider">PKR</span>
+          <span className="text-cyan-400 font-bold text-xl tracking-tight">
             {formattedPrice}
           </span>
         </div>
 
-        <button className="relative w-full py-3 overflow-hidden rounded-xl bg-white/[0.04] border border-white/10 text-xs font-bold uppercase tracking-widest text-white transition-all duration-300 active:scale-[0.98] group/btn">
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500 to-blue-600 scale-x-0 origin-left transition-transform duration-500 ease-out group-hover/btn:scale-x-100" />
-          <span className="relative z-10 flex items-center justify-center gap-2 group-hover/btn:text-slate-950 transition-colors">
-            Add to Cart
-          </span>
+        {/* Action Button */}
+        <button className="mt-4 w-full bg-cyan-400 text-black font-bold py-3 rounded-xl hover:bg-cyan-300 transition-all active:scale-95 text-xs uppercase tracking-widest">
+          Add to Cart
         </button>
       </div>
+
     </div>
   );
 }

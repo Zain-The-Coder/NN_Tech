@@ -8,10 +8,6 @@ export default function ProductTable({ products }) {
         <h2 className="text-lg sm:text-2xl font-bold text-white truncate">
           Product Inventory
         </h2>
-
-        <button className="bg-cyan-400 hover:bg-cyan-500 text-black text-xs sm:text-sm font-semibold px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition shrink-0">
-          + Add Product
-        </button>
       </div>
 
       {/* 1. DESKTOP VIEW: Badi screens par normal table dikhegi (hidden md:block) */}
