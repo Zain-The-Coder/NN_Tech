@@ -1,5 +1,23 @@
 
 export default function Footer() {
+    const handleMessageHim = () => {
+  const phoneNumber = "923182622266"; // apna WhatsApp number
+
+  const message = `Hello,
+
+You developed the NN Tech Store website. I found your name and details on their website.
+
+I am interested in having a similar product website/store built for my business.
+
+Would you be able to help me with that?
+
+Thank you.`;
+
+  window.open(
+    `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
+};
   return (
     <>
     <footer className="border-t border-white/10 py-10 sm:py-12">
@@ -36,9 +54,12 @@ export default function Footer() {
               </p>
             </div>
 
-            <button className="mt-5 w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95">
-              Message Him
-            </button>
+            <button
+  onClick={handleMessageHim}
+  className="mt-5 w-full sm:w-auto bg-cyan-400 text-black px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95"
+>
+  Message Him
+</button>
           </div>
 
         </div>

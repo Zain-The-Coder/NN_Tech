@@ -1,6 +1,17 @@
 import Link from 'next/link';
+const checkAdmin = "NNTECHWITHZAIN" ;
 
 export default function Header() {
+    const checkAdminFunc = () => {
+      const userInput = prompt("Enter Admin Password : ");
+      if(userInput === checkAdmin) {
+        window.location.href = "/admin" ;
+      } else {
+         alert("You are not admin as your password is wrong")
+        window.location.href = "/"
+      }
+    }
+
   return (
     <header className="fixed top-0 w-full z-50">
       <nav className="max-w-7xl mx-auto mt-4 px-6">
@@ -36,11 +47,9 @@ export default function Header() {
     🛒
   </button>
 </Link>
-<Link href="/admin">
-            <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_20px_rgba(34,211,238,0.5)]">
+            <button onClick={checkAdminFunc} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-cyan-400/10 hover:shadow-[0_0_20px_rgba(34,211,238,0.5)]">
               👤
             </button>
-</Link>
           </div>
 
         </div>

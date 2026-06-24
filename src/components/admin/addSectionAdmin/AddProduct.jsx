@@ -7,6 +7,7 @@ export default function AddProduct() {
     price: "",
     quantity: "",
     description: "",
+    featured : true ,
     available: true,
     image: null, // Base64 nahi, ab isme direct file object save hoga
   });
@@ -50,6 +51,7 @@ export default function AddProduct() {
     dataToSend.append("description", formData.description);
     dataToSend.append("price", Number(formData.price));
     dataToSend.append("quantity", Number(formData.quantity));
+    dataToSend.append("featured",formData.featured ? "true" : "false");
     dataToSend.append("categorey", formData.categorey);
     dataToSend.append("available", formData.available ? "true" : "false");
     dataToSend.append("image", formData.image); // Yeh req.file banega multer ke paas
@@ -71,6 +73,7 @@ export default function AddProduct() {
           categorey: "",
           price: "",
           quantity: "",
+          featured : false ,
           description: "",
           available: true,
           image: null,
@@ -214,6 +217,20 @@ export default function AddProduct() {
               </span>
             </label>
           </div>
+          <div className="bg-[#0b111a] border border-white/10 rounded-xl p-3 sm:p-4">
+  <label className="flex items-center gap-3 cursor-pointer select-none">
+    <input
+      type="checkbox"
+      name="featured"
+      checked={formData.featured}
+      onChange={handleChange}
+      className="h-4 w-4 sm:h-5 sm:w-5 accent-cyan-500 cursor-pointer"
+    />
+    <span className="text-gray-300 text-xs sm:text-sm font-medium">
+      Featured Product
+    </span>
+  </label>
+</div>
 
           {/* Upload Image Section */}
           <div>
