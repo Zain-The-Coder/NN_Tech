@@ -40,6 +40,7 @@ router.get(async (req, res) => {
 router.use(upload.single("image"));
 
 // POST Method
+// POST Method
 router.post(async (req, res) => {
   try {
     const {
@@ -60,13 +61,40 @@ router.post(async (req, res) => {
       });
     }
 
-    // Upload to ImageKit using the buffer from memory
+    const isFeatured = featured === true || featured === "true";
+
+    // ==========================
+    // FEATURED LIMIT LOGIC
+    // ==========================
+    if (isFeatured) {
+      const featuredProducts = await ProductModel.find({
+        featured: "true",
+      }).sort({ createdAt: 1 });
+
+      if (featuredProducts.length >= 3) {
+        const oldestFeatured = featuredProducts[0];
+
+        await ProductModel.findByIdAndUpdate(
+          oldestFeatured._id,
+          {
+            featured: "false",
+          }
+        );
+      }
+    }
+
+    // ==========================
+    // IMAGEKIT UPLOAD
+    // ==========================
     const uploadResult = await imagekit.upload({
       file: req.file.buffer,
       fileName: `${Date.now()}-${req.file.originalname}`,
       folder: "/products",
     });
 
+    // ==========================
+    // CREATE PRODUCT
+    // ==========================
     const product = await ProductModel.create({
       productName,
       description,
@@ -75,11 +103,10 @@ router.post(async (req, res) => {
       quantity,
       categorey,
       image: uploadResult.url,
-      featured,
+      featured: isFeatured,
       stock,
     });
 
-    // Added 'return'
     return res.status(201).json({
       status: 201,
       message: "Product Added Successfully!",

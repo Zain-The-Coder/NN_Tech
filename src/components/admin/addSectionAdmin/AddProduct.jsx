@@ -7,7 +7,7 @@ export default function AddProduct() {
     price: "",
     quantity: "",
     description: "",
-    featured : true ,
+    featured : "false" ,
     available: true,
     image: null, // Base64 nahi, ab isme direct file object save hoga
   });
@@ -73,7 +73,7 @@ export default function AddProduct() {
           categorey: "",
           price: "",
           quantity: "",
-          featured : false ,
+          featured : "false" ,
           description: "",
           available: true,
           image: null,

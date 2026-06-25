@@ -1,40 +1,43 @@
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
 export default function FeaturedProducts() {
-  const products = [
-    {
-      title: "TUF Gaming Motherboard",
-      price: "45,000",
-      image: "/images/laptop.jpg",
-    },
-    {
-      title: "ThinkPad X1 Carbon",
-      price: "185,000",
-      image: "/images/laptop.jpg",
-    },
-    {
-      title: "Latest Flagship Mobiles",
-      price: "120,000",
-      image: "/images/laptop.jpg",
-    },
-  ];
+  const api = '/api/products' ;
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(api)
+      .then((res) => res.json())
+      .then((data) => {
+        const featuredProducts = data.products
+          .filter((product) => product.featured === true)
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt) - new Date(a.createdAt)
+          )
+          .slice(0, 3);
+
+        setProducts(featuredProducts);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <section className="max-w-7xl mx-auto px-8 py-20">
-
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10">
         FEATURED HARDWARE
       </h2>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {products.map((product, index) => (
+        {products.map((product) => (
           <ProductCard
-            key={index}
-            {...product}
+            key={product._id}
+            title={product.title}
+            price={product.price}
+            image={product.image}
           />
         ))}
       </div>
-
     </section>
   );
 }

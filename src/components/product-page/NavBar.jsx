@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-// Props mein empty array default fallback [] set kar diya hai taake 'undefined' ka chance hi khatam ho jaye
+const checkAdmin = "NNTECHWITHZAIN";
 export default function Navbar({ selectedCategories = [], setSelectedCategories, setCurrentPage }) {
   const [isOpen, setIsOpen] = useState(false);
   const navLinks = ["Laptops", "PCs", "SSDs", "Mobiles", "Accessories"];
@@ -23,6 +22,16 @@ export default function Navbar({ selectedCategories = [], setSelectedCategories,
       }
     }
   };
+
+  const checkAdminFunc = () => {
+      const userInput = prompt("Enter Admin Password : ");
+      if(userInput === checkAdmin) {
+        window.location.href = "/admin" ;
+      } else {
+         alert("You are not admin as your password is wrong")
+        window.location.href = "/"
+      }
+    }
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50 rounded-2xl bg-slate-950/40 backdrop-blur-xl border border-white/5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-cyan-500/20">
@@ -130,6 +139,20 @@ export default function Navbar({ selectedCategories = [], setSelectedCategories,
               </a>
             );
           })}
+          <div className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
+  <a
+    href="/"
+    className="w-full text-center px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-medium hover:bg-cyan-500/20 transition-all duration-200"
+  >
+    🏠 Back to Home
+  </a>
+
+  <button onClick={checkAdminFunc}
+    className="w-full text-center px-4 py-3 rounded-xl bg-purple-500/10 text-purple-400 font-medium hover:bg-purple-500/20 transition-all duration-200"
+  >
+    ⚙️ Back to Admin
+  </button>
+</div>
         </div>
       </div>
     </nav>

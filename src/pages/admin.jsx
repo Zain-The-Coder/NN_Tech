@@ -6,6 +6,7 @@ import ProductTable from "@/components/admin/ProductTable";
 import Footer from "@/components/admin/Footer";
 import Pagination from "@/components/product-page/Pagination";
 import AddProduct from "@/components/admin/addSectionAdmin/AddProduct";
+import axios from "axios";
 
 export default function AdminPage() {
   const [products, setProducts] = useState([]);
@@ -86,6 +87,22 @@ export default function AdminPage() {
     return filteredProducts.slice(start, start + itemsPerPage);
   }, [filteredProducts, currentPage]);
 
+
+  const handleDelete = async (id) => {
+  try {
+    await axios.delete(`http://localhost:3001/api/${id}`);
+
+    setProducts((prev) =>
+      prev.filter((product) => product._id !== id)
+    );
+
+    alert("Product deleted successfully");
+  } catch (error) {
+    console.error(error);
+    alert("Delete failed");
+  }
+};
+
   return (
     <div className="relative min-h-screen bg-[#0b0f17] text-white overflow-x-hidden">
       
@@ -153,7 +170,7 @@ export default function AdminPage() {
                     </div>
 
                     <div className="overflow-x-auto w-full">
-                      <ProductTable products={paginatedProducts} />
+                      <ProductTable products={paginatedProducts} onDelete={handleDelete} />
                     </div>
 
                     <div className="mt-8">
