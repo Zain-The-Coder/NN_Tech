@@ -35,7 +35,7 @@ export default function ProductCard({_id , image, productName, price, descriptio
         {/* Price */}
         <div className="mt-4 flex items-center justify-between">
           <span className="text-cyan-400 font-bold text-lg">
-            {price}
+            PKR : {price}
           </span>
 
           <span className="text-xs text-gray-400">

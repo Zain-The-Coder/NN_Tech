@@ -18,7 +18,7 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
 
 const handleWhatsApp = () => {
-  const phoneNumber = "923182622266";
+  const phoneNumber = "923353305547";
 
   const productLink = window.location.href;
 
@@ -143,7 +143,7 @@ return (
               mb-4
             "
           >
-            ${product.price}
+            PKR : {product.price}
           </h2>
 
           {/* Stock */}
