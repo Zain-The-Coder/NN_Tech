@@ -90,7 +90,7 @@ export default function AdminPage() {
 
   const handleDelete = async (id) => {
   try {
-    await axios.delete(`http://localhost:3001/api/${id}`);
+    await axios.delete(`/api/${id}`);
 
     setProducts((prev) =>
       prev.filter((product) => product._id !== id)
@@ -99,6 +99,9 @@ export default function AdminPage() {
     alert("Product deleted successfully");
   } catch (error) {
     console.error(error);
+    console.log(error.message);
+  console.log(error.code);
+  console.log(error.response);
     alert("Delete failed");
   }
 };

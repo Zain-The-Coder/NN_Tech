@@ -10,7 +10,7 @@ export default function FeaturedProducts() {
       .then((res) => res.json())
       .then((data) => {
         const featuredProducts = data.products
-          .filter((product) => product.featured === true)
+          .filter((product) => product.featured === "true")
           .sort(
             (a, b) =>
               new Date(b.createdAt) - new Date(a.createdAt)
@@ -18,6 +18,8 @@ export default function FeaturedProducts() {
           .slice(0, 3);
 
         setProducts(featuredProducts);
+        console.log(products);
+        console.log(featuredProducts)
       })
       .catch((err) => console.error(err));
   }, []);
@@ -32,7 +34,8 @@ export default function FeaturedProducts() {
         {products.map((product) => (
           <ProductCard
             key={product._id}
-            title={product.title}
+            id={product._id}
+            title={product.productName}
             price={product.price}
             image={product.image}
           />

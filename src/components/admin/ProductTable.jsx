@@ -1,4 +1,5 @@
 import { Trash2 , InfoIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function ProductTable({ products, onDelete }) {
   return (
@@ -69,11 +70,13 @@ export default function ProductTable({ products, onDelete }) {
                   >
                     <Trash2 size={18} />
                   </button>
-                  <button
+                  <Link href={`/product/${product._id}`}>
+                  <button 
                     className="p-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 transition-all hover:scale-105 active:scale-95"
                     title="View Product"
                    > <InfoIcon size={18} />
                   </button>
+                  </Link>
                 </td>
               </tr>
             ))}
